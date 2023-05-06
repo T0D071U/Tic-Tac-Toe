@@ -1,5 +1,6 @@
 # imports
 import tkinter as tk
+from tkinter import messagebox
 
 #setup
 root = tk.Tk()
@@ -13,21 +14,30 @@ def  play():
     game_Frame.tkraise()
 
 def checkIfWinner():
-    global winner
+    global winner, count
 
     for winConditions in gameBoard:
         for items in winConditions:
             if(items[0].button['text'] == items[1].button['text'] and items[1].button['text'] == items[2].button['text']):
                 winner = items[0].button['text']
-                print('{} is the winner'.format(winner))
+
                 for square in items:
                     square.button['bg'] = 'green'
 
+                messagebox.showinfo("Tic-Tac-Toe", '{} has won this round!'.format(winner))\
+    
+    if(count == 9 and winner == ""):
+        messagebox.showinfo("Tic-Tac-Toe", 'It\'s a tie!')
+
+
+
+
 def reset():
-    global winner, isX
+    global winner, isX, count
 
     winner=''
     isX=True
+    count=0
 
     for row in winRows:
         for square in row:
