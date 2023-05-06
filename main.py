@@ -18,8 +18,20 @@ def checkIfWinner():
     for winConditions in gameBoard:
         for items in winConditions:
             if(items[0].button['text'] == items[1].button['text'] and items[1].button['text'] == items[2].button['text']):
-                print("SOMEONE IS TGHE WINNER")
+                winner = items[0].button['text']
+                print('{} is the winner'.format(winner))
+                for square in items:
+                    square.button['bg'] = 'green'
 
+def reset():
+    global winner, isX
+
+    winner=''
+    isX=True
+
+    for row in winRows:
+        for square in row:
+            square.reset()
 
 #Tkinter frames
 menu_Frame=tk.Frame(root)
@@ -81,7 +93,7 @@ class gameSpot:
     def clicked(self):
         global isX, count
 
-        if(self.isEnabled == False):
+        if(self.isEnabled == False or winner != ''):
             return
         
         if isX == True:
@@ -99,7 +111,13 @@ class gameSpot:
 
     def reset(self):
         self.isEnabled = True
+        self.button['bg'] = 'white'
         self.button['text'] = self.initial
+
+##############
+game_Reset = tk.Button(game_Frame, text='Reset the game!', command=reset)
+game_Reset.grid(column=0, row=4, columnspan=3, sticky='news')
+
 
 #Top row of buttons
 top_Left = gameSpot(
