@@ -11,6 +11,7 @@ count = 0
 
 #functions
 def  play():
+    reset()
     game_Frame.tkraise()
 
 def checkIfWinner():
@@ -128,6 +129,8 @@ class gameSpot:
 game_Reset = tk.Button(game_Frame, text='Reset the game!', command=reset)
 game_Reset.grid(column=0, row=4, columnspan=3, sticky='news')
 
+game_Homescreen = tk.Button(game_Frame, text='Go back to the home screen!', command= menu_Frame.tkraise)
+game_Homescreen.grid(column=0, row=5, columnspan=3, sticky="news")
 
 #Top row of buttons
 top_Left = gameSpot(
