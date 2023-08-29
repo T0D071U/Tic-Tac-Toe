@@ -6,6 +6,7 @@ from tkinter import messagebox
 root = tk.Tk()
 root.title("Tik_Tac_Toe")
 isX = True
+player = True
 winner = ""
 count = 0
 
@@ -102,11 +103,18 @@ class gameSpot:
         self.button.grid(column=self.pos[0], row=self.pos[1], sticky="news")
 
     def clicked(self):
-        global isX, count
+        global isX, count, player
 
         if(self.isEnabled == False or winner != ''):
             return
         
+        if player == True:
+            self.button['fg'] = 'red'
+            player = False
+        else:
+            self.button['fg'] = 'green'
+            player = True
+
         if isX == True:
             self.button["text"] = 'X'
             self.isEnabled = False
@@ -126,65 +134,74 @@ class gameSpot:
         self.button['text'] = self.initial
 
 ##############
+game_Title = tk.Label(game_Frame, text="Example text")
+game_Title.grid(column=0, row=0, columnspan=3, sticky='news')
+                
+game_Player1 = tk.Label(game_Frame, text='Player1:\n0', fg='red')
+game_Player1.grid(column=0, row=1)
+
+game_player2 = tk.Label(game_Frame, text="Player2:\n0", fg='blue')
+game_player2.grid(column=2, row=1)
+
 game_Reset = tk.Button(game_Frame, text='Reset the game!', command=reset)
-game_Reset.grid(column=0, row=4, columnspan=3, sticky='news')
+game_Reset.grid(column=0, row=5, columnspan=3, sticky='news')
 
 game_Homescreen = tk.Button(game_Frame, text='Go back to the home screen!', command= menu_Frame.tkraise)
-game_Homescreen.grid(column=0, row=5, columnspan=3, sticky="news")
+game_Homescreen.grid(column=0, row=6, columnspan=3, sticky="news")
 
 #Top row of buttons
 top_Left = gameSpot(
-    position = (0,1),
+    position = (0,2),
     name = "1",
     initial = " "
 )
 
 top_Mid = gameSpot(
-    position = (1,1),
+    position = (1,2),
     name = "2",
     initial = "  "
 )
 
 top_Right = gameSpot(
-    position = (2,1),
+    position = (2,2),
     name = "3",
     initial = ""
 )
 
 #Middle row of buttons
 mid_Left = gameSpot(
-    position = (0,2),
+    position = (0,3),
     name = "4",
     initial = ""
 )
 
 mid_Mid = gameSpot(
-    position = (1,2),
+    position = (1,3),
     name = "5",
     initial = " "
 )
 
 mid_Right = gameSpot(
-    position = (2,2),
+    position = (2,3),
     name = "6",
     initial = "  "
 )
 
 #Bottom row of buttons
 bot_Left = gameSpot(
-    position = (0,3),
+    position = (0,4),
     name = "7",
     initial = " "
 )
 
 bot_Mid = gameSpot(
-    position = (1,3),
+    position = (1,4),
     name = "8",
     initial = ""
 )
 
 bot_Right = gameSpot(
-    position = (2,3),
+    position = (2,4),
     name = "9",
     initial = "  "
 )
